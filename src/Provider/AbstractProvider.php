@@ -672,6 +672,10 @@ abstract class AbstractProvider
     protected function parseResponse(ResponseInterface $response)
     {
         $content = (string) $response->getBody();
+        
+        preg_match("/\{.*\}/",$content,$arr);
+        $content = $arr[0];
+        
         $type = $this->getContentType($response);
 
         if (strpos($type, 'urlencoded') !== false) {
